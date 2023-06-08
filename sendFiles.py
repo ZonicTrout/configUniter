@@ -2,9 +2,7 @@ import os
 import json
 import libFiles
 
-if os.name == "nt":
-    print("Do not run this on Windows, bozo")
-    exit()
+libFiles.checkOS()
 
 homePath = os.path.expanduser('~')
 pwd = os.getcwd()

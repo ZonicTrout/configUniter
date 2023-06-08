@@ -2,9 +2,7 @@ import os
 import json
 import libFiles
 
-if os.name == "nt":
-    print("Do not run this on Windows, bozo")
-    exit()
+libFiles.checkOS()
 
 if "configFiles" not in libFiles.inWorkDir:
     os.mkdir( f'{libFiles.pwd}/configFiles' )
