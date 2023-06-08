@@ -1,27 +1,19 @@
 import os
 import json
+import libFiles
 
 if os.name == "nt":
     print("Do not run this on Windows, bozo")
     exit()
 
-homePath = os.path.expanduser('~')
-pwd = os.getcwd()
-inWorkDir = os.listdir(pwd)
+if "configFiles" not in libFiles.inWorkDir:
+    os.mkdir( f'{libFiles.pwd}/configFiles' )
 
-Xresource = f'{homePath}/.Xresources'
-i3Config = f'{homePath}/.config/i3/config'
-filesList = [i3Config, Xresource]
-
-
-if "configFiles" not in inWorkDir:
-    os.mkdir( f'{pwd}/configFiles' )
-
-newConfigFolder = f'{pwd}/configFiles'
+newConfigFolder = f'{libFiles.pwd}/configFiles'
 
 configDict = {}
 
-for configFilePath in filesList:
+for configFilePath in libFiles.filesList:
     fileName = configFilePath.split("/")[-1]
     command = f'cp {configFilePath} {newConfigFolder}'
     configDict.update( {configFilePath: fileName} )
@@ -33,6 +25,6 @@ for key, item in configDict.items():
 
 configJson = json.dumps(configDict, indent=4)
 
-with open( f'{pwd}/fileMap.json', "w" ) as configFile:
+with open( f'{libFiles.pwd}/fileMap.json', "w" ) as configFile:
     configFile.write(configJson)
 
