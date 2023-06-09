@@ -10,9 +10,12 @@ inWorkDir = os.listdir(pwd)
 
 Xresource = f'{homePath}/.Xresources'
 i3Config = f'{homePath}/.config/i3/config'
-filesList = [i3Config, Xresource]
+i3statusConfig = f'{homePath}/.config/i3status/config'
+picomConfig = f'{homePath}/.config/picom/picom.conf'
 
-backupDir = f'{pwd}/BackupDir'
+filesList = [i3Config, Xresource, i3statusConfig, picomConfig]
+
+backupDir = f'BackupDir'
 
 
 def checkOS() -> None:
@@ -23,7 +26,14 @@ def checkOS() -> None:
 def BackUp( toBeSaved:list=filesList, newBackupDir=backupDir ):
     for oldFilePath in toBeSaved:
         currentDate:str = datetime.now()
-        command = f'cp {oldFilePath} {oldFilePath}_copy{ currentDate }'
+        
+        oldFileName = oldFilePath.split("/") [-1]
+        newFileName = oldFilePath.replace("/", "_")
+        
+        cpCommand = f'cp {oldFilePath} "{pwd}/{newBackupDir}"'
+        renCommand = f'mv {newBackupDir}/{oldFileName} {newBackupDir}/{newFileName}'
+
+        command = f'{cpCommand} && {renCommand}'
         os.system(command)
         
 

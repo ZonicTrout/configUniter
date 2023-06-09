@@ -1,22 +1,17 @@
 import os
-import json
 import libFiles
 
 libFiles.checkOS()
 
-homePath = os.path.expanduser('~')
-pwd = os.getcwd()
-inWorkDir = os.listdir(pwd)
-configDir = f'{pwd}/configFiles'
+os.chdir( f'{libFiles.pwd}/configFiles' )
+print(os.getcwd())
 
-if "fileMap.json" not in inWorkDir:
-    print( "Do you have a filemap json file?" )
-    exit()
+os.system( "git init" )
+os.system( "git branch -m main" )
+os.system( "git add ." )
+os.system( "git commit -m 'Updated dotFiles'" )
+os.system( "git remote add origin https://github.com/ZonicTrout/rawConfigs.git" )
+os.system( "git push origin main" )
 
-with open("fileMap.json", "r") as jsonMap:
-    global fileMap
-    fileMap = json.load(jsonMap)
 
-for path, fileName in fileMap.items():
-    command = f'cp {configDir}/{fileName} {path}'
-    print(command)
+command = f''

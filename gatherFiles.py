@@ -6,6 +6,9 @@ libFiles.checkOS()
 
 if "configFiles" not in libFiles.inWorkDir:
     os.mkdir( f'{libFiles.pwd}/configFiles' )
+    
+if "backupDir" not in libFiles.inWorkDir:
+    os.mkdir( f'{libFiles.pwd}/backupDir' )
 
 newConfigFolder = f'{libFiles.pwd}/configFiles'
 
@@ -17,12 +20,6 @@ for configFilePath in libFiles.filesList:
     configDict.update( {configFilePath: fileName} )
     os.system( command )
     
+libFiles.BackUp(newBackupDir="configFiles")
 
-for key, item in configDict.items():
-    print (key + "\t" + item)
-
-configJson = json.dumps(configDict, indent=4)
-
-with open( f'{libFiles.pwd}/fileMap.json', "w" ) as configFile:
-    configFile.write(configJson)
 
