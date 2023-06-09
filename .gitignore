@@ -1,3 +1,4 @@
 configFiles
 .gitignore
 BackupDir
+__pycache__
